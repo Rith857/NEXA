@@ -1,0 +1,127 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { profileImageUrl } from "@/features/workspace/profileImage";
+import usePlatformMembers from "@/features/users/usePlatformMembers";
+
+export default function CommunityVoice({ darkMode }) {
+  const { t } = useTranslation();
+  const members = usePlatformMembers();
+
+  const testimonials = [
+    {
+      quote: t("test1Quote"),
+      author: t("test1Author"),
+      role: t("test1Role"),
+      avatar: "src/assets/Team/Tongan.JPG",
+    },
+    {
+      quote: t("test2Quote"),
+      author: t("test2Author"),
+      role: t("test2Role"),
+      avatar:
+        "src/assets/Team/Lisa.JPG",
+    },
+    {
+      quote: t("test3Quote"),
+      author: t("test3Author"),
+      role: t("test3Role"),
+      avatar:
+        "src/assets/Team/Niza.JPG",
+    },
+  ];
+
+  return (
+    <section className="mt-28 mb-16 relative z-10 font-[family-name:var(--font-brand)]">
+      <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className={`inline-block text-base font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-3  cursor-pointer ${
+            darkMode
+              ? "bg-zinc-800 text-[var(--home-primary-text)]"
+              : "bg-[var(--color-brand-primary-light)] text-[var(--home-primary-text)]"
+          }`}
+        >
+          {t("testBadge")}
+        </motion.div>
+
+        <h2 className="text-5xl md:text-5xl font-bold text-[var(--home-primary-text)] mb-3">
+          {t("testTitle")}
+        </h2>
+
+        <p
+          className={`max-w-xl mx-auto text-base md:text-base leading-relaxed ${
+            darkMode ? "text-slate-400" : "text-gray-600"
+          }`}
+        >
+          {t("testSubtitle")}
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial, idx) => {
+          const member = members[idx];
+          const memberPhoto = member
+            ? profileImageUrl(
+                member.profileImage || member.profileImageUrl || member.avatar || member.photoURL || member.image,
+              )
+            : "";
+          return (
+          <motion.div
+            key={idx}
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.3 }}
+            className={`backdrop-blur-md rounded-3xl  p-6 flex flex-col justify-between cursor-pointer transition-colors duration-300 ${
+              darkMode
+                ? "bg-zinc-900/90 text-slate-100"
+                : "bg-white/95 text-gray-800"
+            }`}
+          >
+            <p
+              className={`text-base leading-relaxed mb-6 italic ${
+                darkMode ? "text-slate-300" : "text-gray-700"
+              }`}
+            >
+              "{testimonial.quote}"
+            </p>
+
+            <div
+              className={`flex items-center gap-3 pt-4 border-t ${
+                darkMode ? "border-zinc-800" : "border-gray-100"
+              }`}
+            >
+              <img
+                src={memberPhoto || testimonial.avatar}
+                alt={testimonial.author}
+                onError={(event) => {
+                  if (memberPhoto) event.currentTarget.src = testimonial.avatar;
+                }}
+                className={`w-10 h-10 rounded-full object-cover ${
+                  darkMode ? "border-zinc-700" : "border-gray-200"
+                }`}
+              />
+              <div>
+                <h4
+                  className={`font-bold text-base ${darkMode ? "text-slate-100" : "text-gray-900"}`}
+                >
+                  {testimonial.author}
+                </h4>
+                <p
+                  className={`text-base ${darkMode ? "text-slate-400" : "text-gray-500"}`}
+                >
+                  {testimonial.role}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}

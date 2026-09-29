@@ -1,0 +1,184 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useTheme } from "../../context/ThemeContext.jsx";
+import { MapPin, Phone, Mail } from "lucide-react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaTwitter,
+} from "react-icons/fa";
+
+import istadLogo from "../../assets/Website/istad-logo.png";
+import BrandLogo from "@/Components/common/BrandLogo";
+
+export default function FooterComponent() {
+  const { t } = useTranslation();
+  const { darkMode } = useTheme();
+
+  const quickLinks = [
+    { label: t("footer.quickLinks.home"), to: "/" },
+    { label: t("footer.quickLinks.qa"), to: "/community/qa" },
+    { label: t("footer.quickLinks.lostFound"), to: "/community/lost-found" },
+    { label: t("footer.quickLinks.about"), to: "/about" },
+  ];
+
+  const Legal = [
+    { label: t("footer.legal.privacy"), to: "/privacy-policy" },
+    { label: t("footer.legal.terms"), to: "/terms" },
+  ];
+
+  return (
+    <footer
+      className="site-footer relative overflow-hidden border-t border-slate-200 bg-white text-slate-700 transition-colors duration-300 dark:border-slate-800 dark:bg-zinc-950 dark:text-gray-300"
+    >
+      {/* subtle vertical stripe background, matches reference */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: darkMode
+            ? "repeating-linear-gradient(90deg, transparent, transparent 38px, rgba(255,255,255,0.05) 38px, rgba(255,255,255,0.05) 40px)"
+            : "repeating-linear-gradient(90deg, transparent, transparent 38px, rgba(0,0,0,0.03) 38px, rgba(0,0,0,0.03) 40px)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-14">
+        <div className="grid grid-cols-1 items-start gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[repeat(4,minmax(0,1fr))_max-content]">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="flex items-center gap-2 mb-1">
+              <Link to="/" className="flex items-center group py-0.9 shrink-0">
+                <BrandLogo
+                  alt="NEXA"
+                  className="h-18 w-50 object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+              </Link>
+            </div>
+            <p className="text-base leading-relaxed text-slate-600 dark:text-gray-400 max-w-[220px]">
+              {t("footer.brandDesc")}
+            </p>
+          </div>
+
+          {/* Quick Link */}
+          <div className="no-transition">
+            <h3 className="text-slate-900 dark:text-white font-semibold text-lg tracking-wide mb-4">
+              {t("footer.quickLinksTitle")}
+            </h3>
+
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.to}
+                    className="text-base text-slate-600 dark:text-gray-400 hover:text-brand-secondary transition-all duration-200 no-underline hover:translate-x-1 inline-block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal & Policies */}
+          <div className="no-transition">
+            <h3 className="text-slate-900 dark:text-white font-semibold text-lg tracking-wide mb-4">
+              {t("footer.legalTitle")}
+            </h3>
+
+            <ul className="space-y-3">
+              {Legal.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={item.to}
+                    className="text-base text-slate-600 dark:text-gray-400 hover:text-brand-secondary transition-all duration-200 no-underline hover:translate-x-1 inline-block"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Address & Contact */}
+          <div className="no-transition">
+            <h3 className="text-slate-900 dark:text-white font-semibold text-lg tracking-wide mb-4">
+              {t("footer.contactTitle")}
+            </h3>
+
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2.5 text-base text-slate-600 dark:text-gray-400">
+                <MapPin
+                  size={16}
+                  className="mt-0.5 shrink-0 text-brand-secondary"
+                />
+                <span>
+                  #40, St 273, Sangkat Boeung Kak II, Khan Toul Kork, Phnom
+                  Penh, Cambodia
+                </span>
+              </li>
+
+              <li className="flex items-center gap-2.5 text-base text-slate-600 dark:text-gray-400">
+                <Phone size={16} className="shrink-0 text-brand-secondary" />
+                <span>(+855) 95-990-910</span>
+              </li>
+
+              <li className="flex items-center gap-2.5 text-base text-slate-600 dark:text-gray-400">
+                <Mail size={16} className="shrink-0 text-brand-secondary" />
+                <span>info.istad@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sponsor */}
+          <div className="self-start xl:pl-3">
+            <h3 className="whitespace-nowrap text-slate-900 dark:text-white font-semibold text-lg tracking-wide mb-4">
+              {t("footer.organizedTitle")}
+            </h3>
+
+            {/* Recolor only the wordmark to the right of the circular emblem. */}
+            <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
+              <defs>
+                <filter id="istad-footer-light-lettering" x="0" y="0" width="100%" height="100%" primitiveUnits="objectBoundingBox" colorInterpolationFilters="sRGB">
+                  <feFlood x="0.38" y="0" width="0.62" height="1" floodColor="var(--color-brand-primary)" result="letterColor" />
+                  <feComposite in="letterColor" in2="SourceAlpha" operator="in" result="letters" />
+                  <feMerge>
+                    <feMergeNode in="SourceGraphic" />
+                    <feMergeNode in="letters" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+            <img
+              src={istadLogo}
+              alt="ISTAD logo"
+              className="ml-3 block h-auto w-[210px] max-w-[calc(100%-0.75rem)] object-contain"
+              style={{ filter: darkMode ? undefined : "url(#istad-footer-light-lettering)" }}
+            />
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-base text-slate-600 dark:text-gray-400 order-2 sm:order-1">
+            {t("footer.copyright")}
+          </p>
+          <div className="flex items-center gap-3 order-1 sm:order-2">
+            {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map(
+              (Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  aria-label="Social link"
+                  className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-gray-300 hover:bg-brand-secondary hover:text-white transition-all duration-300 hover:scale-110"
+                >
+                  <Icon size={13} />
+                </a>
+              ),
+            )}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

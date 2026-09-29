@@ -1,0 +1,171 @@
+import showcaseOneImage from "@/assets/Website/ed7ac18f0a66acd81f8a54a9846aa975.jpg";
+import showcaseTwoImage from "@/assets/Website/4dba6191ebd18650c52de2ed5fb47f7d.jpg";
+import showcaseThreeImage from "@/assets/Website/0534f7df0b08edc70592d10d4bd908c0.jpg";
+import showcaseBackground from "@/assets/Website/d54a0076d493ce9c0d95d99a16ecec15.jpg";
+import React from "react";
+import teamPhoto from "@/assets/Website/nexa-team.jpg";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+
+export default function PlatformShowcase({ darkMode }) {
+  const { t } = useTranslation();
+
+  const cards = [
+    {
+      label: t("showcaseCard1Label"),
+      labelColor: darkMode
+        ? "bg-zinc-800 text-[var(--home-primary-text)]"
+        : "bg-[var(--color-brand-primary-light)] text-[var(--home-primary-text)]",
+      text: t("showcaseCard1Text"),
+      img: showcaseOneImage,
+    },
+    {
+      label: t("showcaseCard2Label"),
+      labelColor: darkMode
+        ? "bg-emerald-950/80 text-emerald-400"
+        : "bg-emerald-50 text-[var(--color-brand-accent)]",
+      text: t("showcaseCard2Text"),
+      img: showcaseTwoImage,
+    },
+    {
+      label: t("showcaseCard3Label"),
+      labelColor: darkMode
+        ? "bg-zinc-800 text-[var(--home-secondary-text)]"
+        : "bg-[var(--color-brand-secondary-light)] text-[var(--home-secondary-text)]",
+      text: t("showcaseCard3Text"),
+      img: showcaseThreeImage,
+    },
+  ];
+
+  return (
+    <section className="grid md:grid-cols-3 gap-8 mb-20 relative z-10 font-[family-name:var(--font-brand)]">
+      <motion.div
+        whileHover={{ y: -5 }}
+        transition={{ duration: 0.3 }}
+        className={`md:col-span-2 backdrop-blur-md rounded-3xl overflow-hidden flex flex-col justify-between transition-colors duration-300 ${
+          darkMode
+            ? "bg-zinc-900/90 text-slate-100"
+            : "bg-white/95 text-gray-800"
+        }`}
+      >
+        <div className="relative text-white overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center transform hover:scale-105 transition duration-700"
+            style={{
+              backgroundImage: `url("${showcaseBackground}")`,
+            }}
+          ></div>
+          <div
+            className={`absolute inset-0 transition-opacity duration-300 ${darkMode ? "bg-zinc-950/60" : "bg-black/40"}`}
+          ></div>
+
+          <div className="relative z-10 text-center py-16 px-6">
+            <span className="inline-block bg-white/20 text-white text-base font-semibold px-3 py-1 rounded-full mb-3 backdrop-blur-md">
+              {t("showcaseBadge")}
+            </span>
+            <h2 className="text-5xl md:text-5xl font-bold mb-2 text-white">
+              {t("showcaseTitle")}
+            </h2>
+            <p className="text-white/80 max-w-2xl mx-auto leading-relaxed text-base md:text-base">
+              {t("showcaseSubtitle")}
+            </p>
+          </div>
+        </div>
+
+        <div className="p-8">
+          <span
+            className={`inline-block text-base font-semibold px-3 py-1 rounded-full mb-3 ${
+              darkMode
+                ? "bg-zinc-800 text-[var(--home-primary-text)]"
+                : "bg-[var(--color-brand-primary-light)] text-[var(--home-primary-text)]"
+            }`}
+          >
+            {t("showcaseCoreFeatureTag")}
+          </span>
+          <h3
+            className={`text-xl font-semibold mb-2 ${darkMode ? "text-slate-100" : "text-gray-900"}`}
+          >
+            {t("showcaseCoreHeading")}
+          </h3>
+          <p
+            className={`mb-6 text-base leading-relaxed ${darkMode ? "text-slate-400" : "text-gray-600"}`}
+          >
+            {t("showcaseCoreDesc")}
+          </p>
+          <div
+            className={`flex justify-between items-center text-base pt-4 border-t ${
+              darkMode
+                ? "border-zinc-800 text-slate-400"
+                : "border-gray-100 text-gray-600"
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="w-11 h-11 shrink-0 overflow-hidden rounded-full border-2 border-white shadow-sm ring-1 ring-brand-primary/20">
+                <img src={teamPhoto} alt="NEXA team" className="w-full h-full object-cover object-[52%_58%]" />
+              </span>
+              <div>
+                <p
+                  className={`font-medium ${darkMode ? "text-slate-100" : "text-gray-900"}`}
+                >
+                  {t("showcaseTeamName")}
+                </p>
+                <p
+                  className={`text-base ${darkMode ? "text-slate-300" : "text-gray-600"}`}
+                >
+                  {t("brand")}
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/community/qa"
+              className="text-[var(--home-primary-text)] font-semibold flex items-center gap-1 no-underline hover:underline"
+            >
+              <motion.span
+                whileHover={{ x: 5 }}
+                className="flex items-center gap-1"
+              >
+                {t("showcaseExploreMore")} →
+              </motion.span>
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="flex flex-col gap-4">
+        {cards.map((card, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.02, x: 4 }}
+            transition={{ duration: 0.2 }}
+            className={`backdrop-blur-md rounded-3xl p-5 flex items-center justify-between cursor-pointer transition-colors duration-300 ${
+              darkMode
+                ? "bg-zinc-900/90 text-slate-100"
+                : "bg-white/95 text-gray-800"
+            }`}
+          >
+            <div className="flex-1 pr-4">
+              <span
+                className={`inline-block ${card.labelColor} text-base font-semibold px-3 py-1 rounded-full mb-2`}
+              >
+                {card.label}
+              </span>
+              <p
+                className={`font-medium text-base leading-snug ${darkMode ? "text-slate-200" : "text-gray-900"}`}
+              >
+                {card.text}
+              </p>
+            </div>
+            <div className="w-28 h-20 flex-shrink-0 overflow-hidden rounded-2xl">
+              <img
+                src={card.img}
+                alt={card.label}
+                className="w-full h-full object-cover transform hover:scale-110 transition duration-500"
+              />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
